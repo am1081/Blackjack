@@ -11,18 +11,12 @@
  *
  * @author Andrew
  */
-class Insurance {
-
-    function __construct($state) {
-        $this->dealer = $state->dealer;
-        $this->player = $state->player;
-        $this->handInPlay = $state->handInPlay;
-    }
+class Insurance extends State{
 
     public function takeInsurance($insurance) {
         $this->player->insurance($insurance);
         //if player has blackjack or peek is enabled then move to the end state
-        if (($this->plyer->checkBlackjack()) || $rules["dealerPeek"]) {
+        if ($this->player->hasBlackjack() || ($this->rules["dealerPeek"] && $this->dealer->hasBlackjack())) {
             return new EndGame($this);
         } else {
             return new PlayerAction($this);

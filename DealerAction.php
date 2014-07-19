@@ -14,22 +14,18 @@
 class DealerAction extends State {
 
     public function playHand() {
-        hit();
-        if ($this->dealer->checkBlackjack()) {
-            return new EndGame($this);
-        }
-        while ($this->dealer->hand->getValue < 17) {
-            hit();
+        while ($this->dealer->hand[0]->getValue() < 17) {
+            $this->hit();
         }
         //hit on soft 17?
-        if ($rules["dealerHitsSoft17"] && $this->dealer->hand->hasAce() && $this->dealer->hand->getValue == 17) {
-            hit();
+        if ($this->rules["dealerHitSoft17"] && $this->dealer->hand[0]->hasAce() && $this->dealer->hand[0]->getValue() == 17) {
+            $this->hit();
         }
         return new EndGame($this);
     }
 
     private function hit() {
-        $this->dealer->hand[0]->hit();
+        $this->dealer->hit();
     }
 
 }

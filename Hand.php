@@ -11,90 +11,95 @@
  *
  * @author Andrew
  */
-class Card {
-
-    private $cards = array("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
-    public $name;
-    public $value;
-
-    function __construct() {
-        $randomNo = rand(0, 12);
-        $name = $cards[$randomNo];
-
-//if the card is a 10 or higher
-        if ($randomNo > 8) {
-            $value = 10;
-        } else {
-//plus 1 because first card in array is an A
-            if ($name != "A") {
-                $value = $randomNo + 1;
-            } else {
-                $value = 11;
-            }
-        }
-    }
-
-}
 
 class Hand {
 
-    private $cards = Array();
-    private $value = 0;
+    public $cards = Array();
     public $bet = 0;
-    public $hasAce = false;
 
     //dealer hand
     public function dealerHand(){
-        $this->hand->addCard();
+        $this->addCard();
+        $this->addCard();
     }
     //player hand
     public function playerHand($bet){
-        $this->hand->addCard();
-        $this->hand->addCard();
+        $this->bet = $bet;
+        $this->addCard();
+        $this->addCard();
     }
-    public function hit() {
+    
+    public function addCard() {
         $newCard = new Card();
-        if ($newCard->value = 1) {
-            $this->hasAce = true;
-        }
-        array_push($this->cards, new Card());
+        array_push($this->cards, $newCard);
     }
 
-    public function isBust() {
-        if ($this->value > 21) {
+    public function isBust() 
+    {
+        if ($this->getValue() > 21) {
             return true;
         }
         return false;
     }
 
-    public function double() {
+    public function double() 
+    {
         $this->bet = $this->bet * 2;
     }
 
-    public function splitCards() {
+	//checks the cards are the same and if so, removes one.
+    public function splitCards() 
+    {
         //if the cards are the same
-        if ($this->cards[0]->name = $this->cards[1]->name) {
+        if ($this->cards[0]->value == $this->cards[1]->value) {
             //remove one card
-            array_pop($this->cards);
+            $this->cards = Array(array_pop($this->cards));
+            
             return true;
         } else {
             return false;
         }
     }
-
+    
+    public function isBlackjack()
+    {
+	    if($this->getValue() == 21 && count($this->cards) == 2)
+	    {
+		    return true;
+	    }
+	    else
+	    {
+		    return false;
+	    }
+    }
+    
     public function getValue() {
         $value = 0;
-        foreach ($this->cards as $card) {
-            if ($value > 11 || $card->value != 1) {
-                $value += $card->value;
-            } else {
-                $value += 11;
-            }
+        $aces = 0;
+        
+        foreach ($this->cards as $card)
+        {
+        	$value += $card->value;
+        	if($card->value == 11)
+        	{
+        		$aces++;
+        	}
         }
-        if($value > 21){
-            $value = 0;
+        
+        //if the total is over 21 and we have aces, we need to convert them to 1
+        while($value > 21 && $aces-- > 0)
+        {
+	        $value -= 10;
         }
+        
         return $value;
     }
-
+    
+    public function getCards() {
+        $cards = Array();
+        foreach ($this->cards as $card) {
+            array_push($cards,$card->name);
+        }
+        return $cards;
+    }
 }

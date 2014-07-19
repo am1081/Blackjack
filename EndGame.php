@@ -13,7 +13,7 @@
  */
 class EndGame extends State {
 
-    public $take;
+    public $take = 0;
 
     public function calculateReturn() {
 
@@ -22,27 +22,28 @@ class EndGame extends State {
 
         if ($this->dealer->hasBlackjack()) {
             if ($this->player->hasBlackjack()) {
-                $take += $initialBet; //blackjack
+                $this->take += $initialBet; //blackjack
             }
             if ($this->player->insurance) {
-                $take += ($initialBet / 2) * $rules["insurancePay"]; //insurance   
+                $this->take += ($initialBet / 2) * $this->rules["insurancePayout"]; //insurance   
             }
             return $this;
         }
 
         if ($this->player->hasBlackjack()) {
-            $take += $initialBet * $rules["blackjackPay"]; //blackjack
+            $this->take += $initialBet * $this->rules["blackjackPayout"]; //blackjack
             return $this;
         }
         
         $dealerHandValue = $this->dealer->hand[0]->getValue();
-
+		
         foreach ($this->player->hand as $hand) {
             if (!$hand->isBust()) {
-                if ($hand->getValue() > $dealerHandValue) {
-                    $take += $hand->bet*2;
+                
+                if ($hand->getValue() > $dealerHandValue || $this->dealer->isBust()) {
+                    $this->take += $hand->bet*2;
                 } else if($hand->getValue() == $dealerHandValue) {
-                    $take += $hand->bet;
+                    $this->take += $hand->bet;
                 }
             }
         }
