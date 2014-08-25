@@ -11,6 +11,9 @@
  *
  * @author Andrew
  */
+ 
+namespace App\Games\Blackjack;
+
 class DealerAction extends State {
 
     public function playHand() {

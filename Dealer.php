@@ -11,6 +11,9 @@
  *
  * @author Andrew
  */
+ 
+namespace App\Games\Blackjack;
+ 
 class Dealer extends Person {
 
     function __construct() {

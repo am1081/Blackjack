@@ -11,6 +11,9 @@
  *
  * @author Andrew
  */
+
+namespace App\Games\Blackjack;
+
 class EndGame extends State {
 
     public $take = 0;

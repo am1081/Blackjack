@@ -12,6 +12,8 @@
  * @author Andrew
  */
 
+namespace App\Games\Blackjack;
+
 class Hand {
 
     public $cards = Array();

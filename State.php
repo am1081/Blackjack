@@ -11,10 +11,9 @@
  * @author Andrew
  */
 
+namespace App\Games\Blackjack;
 
 class State {
-
-	
 
 	protected $rules = Array(
 	    "decks" => 6,
@@ -30,8 +29,7 @@ class State {
 	    "dealerHitSoft17" => false,
 	    "allowedSplits" => 3
 	);
-    
-    public $gameId;
+
     public $player = Array();
     public $dealer;
     public $handInPlay;

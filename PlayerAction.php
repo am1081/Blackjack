@@ -11,16 +11,29 @@
  *
  * @author Andrew
  */
+ 
+
+ 
+namespace App\Games\Blackjack;
+
 class PlayerAction extends State {
 
+	public function takeInsurance() {
+        $this->player->insurance = true;
+        //if player has blackjack or peek is enabled then move to the end state
+        if ($this->player->hasBlackjack() || ($this->rules["dealerPeek"] && $this->dealer->hasBlackjack())) {
+            return new EndGame($this);
+        } else {
+            return $this;
+        }
+    }
+    
     public function hit() {
-    	echo count($this->player->hand);
-    	echo $this->handInPlay;
         $this->player->hit($this->handInPlay);
         if ($this->player->isBust($this->handInPlay)) {
             if ($this->handInPlay > 0) { //if this isn't the last hand
                 $this->handInPlay--;
-                $this->hit();
+                $this->hit(); //initially the split hand will only have 1 card so we hit
             } else {
                 return new EndGame($this);
             }
@@ -33,7 +46,7 @@ class PlayerAction extends State {
         if (count($this->player->hand[$this->handInPlay]->cards) == 2 && (count($this->player->hand) <= $this->rules["allowedSplits"]) && $this->player->split($this->handInPlay)) {
             //make this hand the current one in play
             $this->handInPlay++;
-            return $this->hit();
+            return $this->hit(); //initially the split hand will only have 1 card so we hit
         }
         return $this;
     }

@@ -11,6 +11,9 @@
  *
  * @author Andrew
  */
+ 
+namespace App\Games\Blackjack;
+ 
 class Player extends Person {
 
     public $insurance = false;
@@ -44,10 +47,6 @@ class Player extends Person {
 
     public function doubleDown($hand) {
         $this->hand[$hand]->bet = $this->initialBet * 2;
-    }
-
-    public function insurance($insurance) {
-        $this->insurance = $insurance;
     }
 
 }
