@@ -12,7 +12,7 @@
  * @author Andrew
  */
 
-namespace App\Games\Blackjack;
+namespace Blackjack;
 
 class Hand {
 
@@ -105,3 +105,4 @@ class Hand {
         return $cards;
     }
 }
+?>

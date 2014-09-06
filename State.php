@@ -1,24 +1,13 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Andrew
- */
-
-namespace App\Games\Blackjack;
+namespace Blackjack;
 
 class State {
 
 	protected $rules = Array(
 	    "decks" => 6,
 	    "minBet" => 5,
-	    "maxBet" => 50,
+	    "maxBet" => 500,
 	    "blackjackPayout" => 2.5,
 	    "insurancePayout" => 3,
 	    "hitSplitAces" => false,
@@ -38,6 +27,7 @@ class State {
         $this->dealer = $state->dealer;
         $this->player = $state->player;
         $this->handInPlay = $state->handInPlay;
-        $this->gameId = $state->gameId;
     }
 }
+
+?>

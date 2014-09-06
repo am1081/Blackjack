@@ -12,7 +12,7 @@
  * @author Andrew
  */
  
-namespace App\Games\Blackjack;
+namespace Blackjack;
 
 class DealerAction extends State {
 
@@ -32,3 +32,4 @@ class DealerAction extends State {
     }
 
 }
+?>

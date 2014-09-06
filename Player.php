@@ -12,7 +12,7 @@
  * @author Andrew
  */
  
-namespace App\Games\Blackjack;
+namespace Blackjack;
  
 class Player extends Person {
 
@@ -50,3 +50,4 @@ class Player extends Person {
     }
 
 }
+?>

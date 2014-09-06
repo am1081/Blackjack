@@ -11,8 +11,9 @@
  *
  * @author Andrew
  */
- 
-namespace App\Games\Blackjack;
+
+
+namespace Blackjack;
 
 class Card {
 	
@@ -31,11 +32,11 @@ class Card {
 	        $randomNo = rand(0, 12);
 		}
 		$this->name = $this->cards[$randomNo];
-//if the card is a 10 or higher
+		//if the card is a 10 or higher
         if ($randomNo > 8) {
             $this->value = 10;
         } else {
-//plus 1 because first card in array is an A
+			//plus 1 because first card in array is an A
             if ($this->name != "A") {
                 $this->value = $randomNo + 1;
             } else {
@@ -45,3 +46,4 @@ class Card {
         
     }
 }
+?>

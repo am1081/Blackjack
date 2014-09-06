@@ -14,7 +14,7 @@
  
 
  
-namespace App\Games\Blackjack;
+namespace Blackjack;
 
 class PlayerAction extends State {
 
@@ -77,3 +77,4 @@ class PlayerAction extends State {
             }
         }
     }
+?>

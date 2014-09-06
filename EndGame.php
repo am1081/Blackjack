@@ -12,7 +12,7 @@
  * @author Andrew
  */
 
-namespace App\Games\Blackjack;
+namespace Blackjack;
 
 class EndGame extends State {
 
@@ -53,3 +53,4 @@ class EndGame extends State {
         return $this;
     }
 }
+?>
