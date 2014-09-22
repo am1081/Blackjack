@@ -11,7 +11,7 @@ class NewGame extends State {
         
         	//make a new shoe and shuffle it
             $this->shoe = new Shoe($this->rules["decks"]);
-            $this->shoe->shuffle(); //only keep 28 cards
+            $this->shoe->shuffle(28); //only keep 28 cards
             //$this->shoe->testDistribution(); for testing
             
             $this->dealer = new Dealer($this->shoe);
