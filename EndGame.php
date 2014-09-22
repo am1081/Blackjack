@@ -25,7 +25,7 @@ class EndGame extends State {
 
         if ($this->dealer->hasBlackjack()) {
             if ($this->player->hasBlackjack()) {
-                $this->take += $initialBet; //blackjack
+                $this->take += $initialBet; //if player and dealer have blackjack it's a push
             }
             if ($this->player->insurance) {
                 $this->take += ($initialBet / 2) * $this->rules["insurancePayout"]; //insurance   

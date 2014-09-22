@@ -19,11 +19,14 @@ class State {
 	    "allowedSplits" => 3
 	);
 
+	public $shoe = null;
     public $player = Array();
     public $dealer;
     public $handInPlay;
+    //public $validActions = array("hit" => 0, "stick" => 0, "double" => 0, "split" => 0);
     
     function __construct($state) {
+    	$this->shoe = $state->shoe;
         $this->dealer = $state->dealer;
         $this->player = $state->player;
         $this->handInPlay = $state->handInPlay;

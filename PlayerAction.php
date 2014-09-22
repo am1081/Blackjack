@@ -29,7 +29,7 @@ class PlayerAction extends State {
     }
     
     public function hit() {
-        $this->player->hit($this->handInPlay);
+        $this->player->hit($this->shoe,$this->handInPlay);
         if ($this->player->isBust($this->handInPlay)) {
             if ($this->handInPlay > 0) { //if this isn't the last hand
                 $this->handInPlay--;
@@ -69,8 +69,12 @@ class PlayerAction extends State {
     public function stick() {
         //if DAS is disabled then the player can only double if they are playing one hand (not split)
         if ($this->handInPlay == 0) {
+        		if($this->player->isBust($this->handInPlay)) //if the hand was doubled and busted we don't bother doing the dealer action and just finish the game
+        		{
+	        		return new EndGame($this);
+        		}
                 return new DealerAction($this);
-            } else { //when the hand has been split
+            } else { //when the hand has been split we need to hit to get 2 cards
                 $this->handInPlay--;
                 $this->hit();
                 return $this;

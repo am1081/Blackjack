@@ -17,18 +17,18 @@ namespace Blackjack;
 class DealerAction extends State {
 
     public function playHand() {
-        while ($this->dealer->hand[0]->getValue() < 17) {
+        while ($this->dealer->hand[0]->value < 17) {
             $this->hit();
         }
         //hit on soft 17?
-        if ($this->rules["dealerHitSoft17"] && $this->dealer->hand[0]->hasAce() && $this->dealer->hand[0]->getValue() == 17) {
+        if ($this->rules["dealerHitSoft17"] && $this->dealer->hand[0]->hasAce() && $this->dealer->hand[0]->value == 17) {
             $this->hit();
         }
         return new EndGame($this);
     }
 
     private function hit() {
-        $this->dealer->hit();
+        $this->dealer->hit($this->shoe);
     }
 
 }

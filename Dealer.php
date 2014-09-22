@@ -16,9 +16,9 @@ namespace Blackjack;
  
 class Dealer extends Person {
 
-    function __construct() {
+    function __construct($shoe) {
         $this->hand[0] = new Hand();
-        $this->hand[0]->dealerHand();
+        $this->hand[0]->dealerHand($shoe);
     }
 
     public function hasBlackjack() {
@@ -29,7 +29,7 @@ class Dealer extends Person {
     }
 
     public function showsAce() {
-        if ($this->hand[0]->cards[0]->name == "A") {
+        if ($this->hand[0]->cards[0]->value == 11) {
             return true;
         }
         return false;

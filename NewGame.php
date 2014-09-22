@@ -8,9 +8,16 @@ class NewGame extends State {
 
     function __construct($bet) {
         if ($bet >= $this->rules["minBet"] && $bet <= $this->rules["maxBet"]) {
-            $this->dealer = new Dealer();
-            $this->player = new Player($bet);
+        
+        	//make a new shoe and shuffle it
+            $this->shoe = new Shoe($this->rules["decks"]);
+            $this->shoe->shuffle(); //only keep 28 cards
+            //$this->shoe->testDistribution(); for testing
+            
+            $this->dealer = new Dealer($this->shoe);
+            $this->player = new Player($bet,$this->shoe);
             $this->handInPlay = 0;
+            
         } 
     }
 
@@ -30,5 +37,6 @@ class NewGame extends State {
             return new PlayerAction($this);
         }
     }
+    
 }
 ?>

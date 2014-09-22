@@ -19,18 +19,29 @@ class Player extends Person {
     public $insurance = false;
     public $initialBet;
 
-    function __construct($bet) {
+    function __construct($bet,$shoe) {
         //initialise the bet
         $this->initialBet = $bet;
         $this->hand[0] = new Hand();
-        $this->hand[0]->playerHand($bet);
+        $this->hand[0]->playerHand($bet,$shoe);
     }
 
     public function split($hand) {
         if ($this->hand[$hand]->splitCards()) {
             
-            //DEEP clone the hand object
-            $this->hand[$hand+1] = unserialize(serialize($this->hand[$hand]));
+            $newHand = new Hand();
+            
+            //add the second card in the current hand to the new hand
+            $newHand->cards[0] = $this->hand[$hand]->cards[1];
+            
+            //remove the card from the current hand
+            array_pop($this->hand[$hand]->cards);
+            
+            
+            //Insert the new hand into the array of current player hands
+            array_splice($this->hand,$hand+1,0,array($newHand));
+            
+            
             
             return true;
         }
@@ -39,7 +50,7 @@ class Player extends Person {
 	
 	//check if the player has 2 cards that add up to 21 (split hands with a sum of 21 are not blackjack)
     public function hasBlackjack() {
-        if ($this->hand[0]->getValue() == 21 && count($this->hand[0]->cards) == 2 && count($this->hand) == 1) {
+        if ($this->hand[0]->value == 21 && count($this->hand[0]->cards) == 2 && count($this->hand) == 1) {
             return true;
         }
         return false;

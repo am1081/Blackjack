@@ -18,22 +18,24 @@ class Hand {
 
     public $cards = Array();
     public $bet = 0;
+    public $value = 0;
 
     //dealer hand
-    public function dealerHand(){
-        $this->addCard();
-        $this->addCard();
+    public function dealerHand($shoe){
+        $this->addCard($shoe);
+        $this->addCard($shoe);
     }
     //player hand
-    public function playerHand($bet){
+    public function playerHand($bet,$shoe){
         $this->bet = $bet;
-        $this->addCard();
-        $this->addCard();
+        $this->addCard($shoe);
+        $this->addCard($shoe);
     }
     
-    public function addCard() {
-        $newCard = new Card();
+    public function addCard($shoe) {
+        $newCard = $shoe->getCard();
         array_push($this->cards, $newCard);
+        $this->value = $this->getValue();
     }
 
     public function isBust() 
@@ -42,6 +44,18 @@ class Hand {
             return true;
         }
         return false;
+    }
+    
+    public function hasAce()
+    {
+	    foreach($this->cards as $card)
+	    {
+		    if($card->value == 11)
+		    {
+			    return true;
+		    }
+	    }
+	    return false;
     }
 
     public function double() 
@@ -54,9 +68,6 @@ class Hand {
     {
         //if the cards are the same
         if ($this->cards[0]->value == $this->cards[1]->value) {
-            //remove one card
-            $this->cards = Array(array_pop($this->cards));
-            
             return true;
         } else {
             return false;
